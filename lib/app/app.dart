@@ -12,7 +12,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/home': (context) => HomePage(),
-        '/timer': (context) => TimerPage(timerType: TimerType.focus),
+        '/timer': (context) => TimerPage(
+          timerType: (ModalRoute.of(context)!.settings.arguments as TimerType?) ?? TimerType.focus,
+        ),
       },
       title: 'Fokus',
       theme: ThemeData(
