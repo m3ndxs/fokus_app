@@ -48,7 +48,9 @@ class _TimerWidgetState extends State<TimerWidget> {
             width: double.infinity,
             height: 56,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context, '10 min');
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppConfig.buttonColor,
                 foregroundColor: Colors.white,
