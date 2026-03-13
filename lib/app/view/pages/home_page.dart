@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fokus/app/enums/timer_type.dart';
-import '../utils/app_config.dart';
+import 'package:fokus/app/shared/enums/timer_type.dart';
+import '../../shared/utils/app_config.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

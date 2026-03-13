@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:fokus/app/utils/app_config.dart';
+import 'package:fokus/app/shared/utils/app_config.dart';
 
 class TimerWidget extends StatefulWidget {
   final int initialMinutes;
