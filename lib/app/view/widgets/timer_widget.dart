@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-
 import 'package:fokus/app/shared/utils/app_config.dart';
 import 'package:fokus/app/view_model/timer_view_model.dart';
 
@@ -16,6 +13,7 @@ class TimerWidget extends StatefulWidget {
 
 class _TimerWidgetState extends State<TimerWidget> {
   final timerViewModel = TimerViewModel();
+  final isPausedNotifier = ValueNotifier<bool>(false);
 
   @override
   void initState() {
@@ -76,8 +74,12 @@ class _TimerWidgetState extends State<TimerWidget> {
                     if (isPlaying) {
                       timerViewModel.stopTime();
                     } else {
-                      timerViewModel.startTimer(widget.initialMinutes);
+                      timerViewModel.startTimer(
+                        widget.initialMinutes,
+                        isPausedNotifier,
+                      );
                     }
+                    isPausedNotifier.value = false;
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: isPlaying
@@ -101,7 +103,7 @@ class _TimerWidgetState extends State<TimerWidget> {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        isPlaying ? "Pausar" : "Iniciar",
+                        isPlaying ? "Parar" : "Iniciar",
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -113,6 +115,41 @@ class _TimerWidgetState extends State<TimerWidget> {
                 );
               },
             ),
+          ),
+          const SizedBox(height: 20),
+          ValueListenableBuilder(
+            valueListenable: isPausedNotifier,
+            builder: (context, value, child) {
+              return ListenableBuilder(
+                listenable: timerViewModel,
+                builder: (context, child) {
+                  if (!timerViewModel.isPlaying) return SizedBox.shrink();
+                  return SizedBox(
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        isPausedNotifier.value = !value;
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(value ? Icons.play_arrow_sharp : Icons.pause, color: Colors.green),
+                          const SizedBox(width: 10),
+                          Text(
+                             value ? "Continuar" : "Pausar",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppConfig.backgroundColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
           ),
         ],
       ),
