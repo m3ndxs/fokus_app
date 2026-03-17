@@ -34,6 +34,7 @@ class HomePage extends StatelessWidget {
 
                         if (result != null) {
                           showDialog(
+                            // ignore: use_build_context_synchronously
                             context: context,
                             builder: (context) =>
                                 AlertDialog(title: Text(result.toString())),
