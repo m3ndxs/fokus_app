@@ -7,6 +7,7 @@ void main() {
     late TimerViewModel viewModel;
     late ValueNotifier<bool> isPaused;
 
+    // Inicia as variáveis para o teste
     setUp(() {
       viewModel = TimerViewModel();
       isPaused = ValueNotifier<bool>(false);
@@ -23,7 +24,7 @@ void main() {
         viewModel.startTimer(5, isPaused);
 
         expect(viewModel.isPlaying, isTrue);
-        expect(viewModel.duration, Duration.zero); 
+        expect(viewModel.duration, Duration.zero);
       });
 
       test('incrementa a cada segundo quando não está pausado', () async {
